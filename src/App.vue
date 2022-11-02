@@ -11,6 +11,10 @@ const items = [
         label: "新建录制",
         icon: "pi pi-video",
       },
+      {
+        label: "导出视频",
+        icon: "pi pi-file-export",
+      },
     ],
   },
   {
@@ -64,6 +68,9 @@ const items = [
   :deep(.p-panel .p-panel-content) {
     height: 100%;
     overflow-y: auto;
+  }
+  :deep(.p-splitter-panel) {
+    overflow: hidden;
   }
 }
 </style>
