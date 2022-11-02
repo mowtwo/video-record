@@ -21,6 +21,8 @@ void (async () => {
 
   let recording = false
 
+  const isSafari = () => /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
+
 
   start.addEventListener('click', async () => {
     if (recording) {
@@ -37,7 +39,7 @@ void (async () => {
       const record = new MediaRecorder(stream, {
         audioBitsPerSecond: 128000,
         videoBitsPerSecond: 2500000,
-        mimeType: 'video/webm' // chrome仅支持录制webm
+        mimeType: isSafari() ? 'video/mp4' : 'video/webm' // chrome仅支持录制webm
       })
 
       chunk = []
