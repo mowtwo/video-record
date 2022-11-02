@@ -4,7 +4,8 @@ export { }
 
 void (async () => {
   const ffmpeg = createFFmpeg({
-    log: true
+    log: true,
+    corePath: '/lib/ffmpeg-core/ffmpeg-core.js'
   })
 
   await ffmpeg.load()
