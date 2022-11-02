@@ -1,4 +1,12 @@
+import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg"
+
 export { }
+
+const ffmpeg = createFFmpeg({
+  log: true
+})
+
+await ffmpeg.load()
 
 const start = document.querySelector('.start') as HTMLButtonElement
 // const app = document.querySelector('#app') as HTMLDivElement
@@ -91,10 +99,23 @@ download.addEventListener('click', async () => {
   }
   if (chunk.length > 0) {
     try {
-      const url = await readAsDataURL(new Blob(chunk, {
-        type: 'video/mp4'
-      }))
+      const data = await fetchFile(new Blob(chunk))
+      const temp = 'temp.webm'
+      const name = `${Date.now()}-capture-record.mp4`
+      await ffmpeg.FS('writeFile', temp, data)
+
+      download.disabled = true
+      download.innerHTML = 'converting'
+
+      await ffmpeg.run('-i', temp, name)
+
+      const buffer = await ffmpeg.FS('readFile', name)
+
+      const url = await readAsDataURL(new Blob([buffer]))
+
       downloadVideo(url)
+      download.disabled = false
+      download.innerHTML = 'download'
     } catch (e) {
       alert(e)
     }
