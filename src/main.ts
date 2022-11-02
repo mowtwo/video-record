@@ -63,6 +63,18 @@ const readAsDataURL = (file: Blob) => new Promise<string>(resolve => {
   })
 })
 
+const convertAsDataURL = async (file: Blob) => {
+  const data = await fetchFile(file)
+  const temp = 'temp.webm'
+  const name = `${Date.now()}-capture-record.mp4`
+  await ffmpeg.FS('writeFile', temp, data)
+  await ffmpeg.run('-i', temp, name)
+  const buffer = await ffmpeg.FS('readFile', name)
+  const url = await readAsDataURL(new Blob([buffer]))
+
+  return url
+}
+
 
 replay.addEventListener('click', async () => {
   if (recording) {
@@ -99,20 +111,9 @@ download.addEventListener('click', async () => {
   }
   if (chunk.length > 0) {
     try {
-      const data = await fetchFile(new Blob(chunk))
-      const temp = 'temp.webm'
-      const name = `${Date.now()}-capture-record.mp4`
-      await ffmpeg.FS('writeFile', temp, data)
-
       download.disabled = true
       download.innerHTML = 'converting'
-
-      await ffmpeg.run('-i', temp, name)
-
-      const buffer = await ffmpeg.FS('readFile', name)
-
-      const url = await readAsDataURL(new Blob([buffer]))
-
+      const url = await convertAsDataURL(new Blob(chunk))
       downloadVideo(url)
       download.disabled = false
       download.innerHTML = 'download'
