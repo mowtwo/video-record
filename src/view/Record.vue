@@ -33,8 +33,9 @@ const handleCapture = async () => {
   if (!screenStart.value) {
     if (!!screenStream.value) {
       const stream = screenStream.value!;
-      const activeTrack = stream.getTracks()[0];
-      if (activeTrack) {
+      const activeTracks = stream.getTracks();
+      console.log(stream.getTracks());
+      for (const activeTrack of activeTracks) {
         activeTrack.stop();
         activeTrack.dispatchEvent(new Event("ended"));
         stream.removeTrack(activeTrack);
