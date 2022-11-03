@@ -7,10 +7,10 @@ const items = [
     label: "文件",
     icon: "pi pi-file",
     items: [
-      {
-        label: "新建录制",
-        icon: "pi pi-video",
-      },
+      // {
+      //   label: "新建录制",
+      //   icon: "pi pi-video",
+      // },
       {
         label: "导出视频",
         icon: "pi pi-file-export",
@@ -43,11 +43,12 @@ const items = [
       </template>
     </Menubar>
     <div class="flex-1 main">
-      <Splitter style="height: 100%">
-        <SplitterPanel :size="15" :min-size="10">
-          <Panel header="视频列表" style="height: 100%"> </Panel>
-        </SplitterPanel>
-        <SplitterPanel :size="85" :min-size="60">
+      <Splitter style="height: 100%" class="main-split">
+        <!-- <SplitterPanel :size="15" :min-size="10">
+          <Panel class="video-list" header="录制列表" style="height: 100%">
+          </Panel>
+        </SplitterPanel> -->
+        <SplitterPanel :size="100" :min-size="60">
           <RouterView></RouterView>
         </SplitterPanel>
       </Splitter>
@@ -57,19 +58,19 @@ const items = [
 
 <style lang="scss" scoped>
 .main {
-  :deep(.p-panel) {
+  :deep(.video-list) {
     display: flex;
     flex-flow: column;
   }
-  :deep(.p-panel .p-toggleable-content) {
+  :deep(.video-list .p-toggleable-content) {
     flex: 1;
     overflow: hidden;
   }
-  :deep(.p-panel .p-panel-content) {
+  :deep(.video-list .p-panel-content) {
     height: 100%;
     overflow-y: auto;
   }
-  :deep(.p-splitter-panel) {
+  :deep(.main-split .p-splitter-panel) {
     overflow: hidden;
   }
 }

@@ -1,9 +1,13 @@
 <script lang="ts" setup>
 import Video from "./Video.vue";
+import Record from "./Record.vue";
 </script>
 
 <template>
   <TabView>
+    <TabPanel header="查看录制">
+      <Record></Record>
+    </TabPanel>
     <TabPanel header="查看视频">
       <Video></Video>
     </TabPanel>
@@ -19,7 +23,7 @@ import Video from "./Video.vue";
   :deep(.p-tabview-panels) {
     flex: 1;
     overflow: hidden;
-    padding: 0.2rem 0.1rem;
+    padding: 0.2rem 0;
   }
   :deep(.p-tabview-panel) {
     height: 100%;

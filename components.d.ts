@@ -7,6 +7,8 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    Button: typeof import('primevue/button')['default']
+    InputText: typeof import('primevue/inputtext')['default']
     Menubar: typeof import('primevue/menubar')['default']
     Panel: typeof import('primevue/panel')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
@@ -15,5 +17,7 @@ declare module '@vue/runtime-core' {
     SplitterPanel: typeof import('primevue/splitterpanel')['default']
     TabPanel: typeof import('primevue/tabpanel')['default']
     TabView: typeof import('primevue/tabview')['default']
+    ToggleButton: typeof import('primevue/togglebutton')['default']
+    Toolbar: typeof import('primevue/toolbar')['default']
   }
 }
